@@ -2,24 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { instance as Axios } from '../../utils/axios';
 import { driverTableConfig } from '../../utils/dataTableConfig';
 import { Table } from '../../components/Tables';
-import { createDriver, deleteDriver } from '../../utils/CRUD.services';
+import { createDriver } from '../../utils/CRUD.services';
+import DeleteDriverModal from '../../components/modals/DeleteDriverModal';
 import EditDriverModal from '../../components/modals/editDriverModal';
-// import Popup from '../../components/popup';
 import SphereLoader from '../../components/loaders/sphereLoader';
 
 const Driver = () => {
   const [driversData, setdriversData] = useState();
   const [loading, setLoading] = useState(true);
+  const [driver_id, setDriver_Id] = useState("") // for delete modal
   const [payload, setPayload] = useState({ first_name: "", last_name: "", phone: "", email: "" });
   const [addDriverRender, setAddDriverRender] = useState(false);
   const [driverInfo, setDriverInfo] = useState();
-  // const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [popUpMessage, setPopupMessage] = useState("");
+  const [showDeleteModal, setDeleteModal] = useState(false);
 
-  // const handleOpenPopup = () => setIsPopupOpen(true);
-  // const handleClosePopup = () => setIsPopupOpen(false);
-  // const togglePopup = () => setIsPopupOpen(!isPopupOpen);
+
+  const deleteDriverInfo = id => {
+    console.log("id:", id)
+    setDriver_Id(id);
+    setDeleteModal(true);
+  };
 
   const editDriverinfo = info => {
     setDriverInfo(info);
@@ -27,7 +30,11 @@ const Driver = () => {
   };
   const toggleAddDriverRender = () => setAddDriverRender(!addDriverRender);
   const changeEditInfoRenderStatus = () => setShowModal(false);
+  const changeDeleteInfoRenderStatus = () => setDeleteModal(false);
+
+  // const deleteInfoModal = 
   const editInfoModal = showModal ? <EditDriverModal onchange={changeEditInfoRenderStatus} data={driverInfo} /> : null;
+  const deleteInfoModal = showDeleteModal ? <DeleteDriverModal onchange={changeDeleteInfoRenderStatus} driver_id={driver_id} /> : null;
 
   const actionColumn = {
     Header: 'Action', accessor: 'action',
@@ -43,7 +50,7 @@ const Driver = () => {
         <span className="text-left pointer m-auto">
           <i
             className="zmdi zmdi-delete hover:cursor-pointer"
-            onClick={e => { deleteDriver(row.original.driver_id); window.location.reload(); }}
+            onClick={e => { deleteDriverInfo(row.original.driver_id); }}
             style={{ fontSize: "22px", color: "#FC0303" }}>
           </i>
         </span>
@@ -70,24 +77,20 @@ const Driver = () => {
     const response = await createDriver(payload);
     if (response.status === "SUCCESS") {
       window.location.reload();
-      setPopupMessage(response.message);
-      // setIsPopupOpen(false);
     } else {
-      console.log("failed");
-      setPopupMessage(response);
-      // setIsPopupOpen(true);
+      alert(`operation failed: ${response.message}`);
     };
   }
 
   return (
     <div className=''>
-      {/* <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>Hello</Popup> */}
+      {deleteInfoModal}
       {editInfoModal}
-      <h1 className='text-5xl text-center'>Drivers</h1>
+      <h1 className='text-5xl text-center mt-2 font-bold'>Drivers</h1>
 
       {loading ? <SphereLoader /> :
         <div className='transition-all duration-300 ease-in-out'>
-          <div className='mx-auto h-14 w-5/6 mt-6 flex justify-between items-center'>
+          <div className='mx-auto h-14 w-5/6 mt-4 flex justify-between items-center'>
 
             <div className=''>
               <button onClick={e => toggleAddDriverRender()}

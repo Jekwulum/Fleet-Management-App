@@ -3,7 +3,7 @@ import Select from "react-select";
 import { editDriver } from "../../utils/CRUD.services";
 
 export default function EditDriverModal({ onchange, data }) {
-  console.log(data);
+  
   const [showModal, setShowModal] = useState(true);
   const [first_name, setFirstName] = useState(data.first_name);
   const [last_name, setLastName] = useState(data.last_name);
@@ -25,6 +25,7 @@ export default function EditDriverModal({ onchange, data }) {
     if (response.status === "SUCCESS") {
       alert("Success");
       handleClose();
+      window.location.reload();
     } else {
       alert(`operation failed: ${response.message}`);
     };
@@ -44,14 +45,14 @@ export default function EditDriverModal({ onchange, data }) {
                   <h3 className="text-3xl font-semibold">
                     Edit driver info <i className="zmdi zmdi-edit ml-2"></i>
                   </h3>
-                  <button
+                  {/* <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
                   >
                     <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                       ×
                     </span>
-                  </button>
+                  </button> */}
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
@@ -70,7 +71,7 @@ export default function EditDriverModal({ onchange, data }) {
 
                   <div>
                     <label htmlFor="last_name">Last Name:</label>
-                    <input type="text" id="last_name" onChange={e => setFirstName(e.target.value)} value={last_name}
+                    <input type="text" id="last_name" onChange={e => setLastName(e.target.value)} value={last_name}
                       className="border h-8 w-[300px] text-sm m-1 p-2 ml-2 focus:outline-none bg-gray-200` text-custom-bgColor' placeholder='Last Name' " />
                   </div>
 
