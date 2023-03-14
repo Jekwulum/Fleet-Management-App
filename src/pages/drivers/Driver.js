@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { instance as Axios } from '../../utils/axios';
 import { driverTableConfig } from '../../utils/dataTableConfig';
 import { Table } from '../../components/Tables';
-import { createDriver } from '../../utils/CRUD.services';
-import Popup from '../../components/popup';
+import { createDriver, deleteDriver } from '../../utils/CRUD.services';
+import EditDriverModal from '../../components/modals/editDriverModal';
+// import Popup from '../../components/popup';
 import SphereLoader from '../../components/loaders/sphereLoader';
 
 const Driver = () => {
@@ -11,14 +12,22 @@ const Driver = () => {
   const [loading, setLoading] = useState(true);
   const [payload, setPayload] = useState({ first_name: "", last_name: "", phone: "", email: "" });
   const [addDriverRender, setAddDriverRender] = useState(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [popUpMessage, setPopupMessage] = useState("")
+  const [driverInfo, setDriverInfo] = useState();
+  // const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [popUpMessage, setPopupMessage] = useState("");
 
-  const handleOpenPopup = () => setIsPopupOpen(true);
-
-  const handleClosePopup = () => setIsPopupOpen(false);
+  // const handleOpenPopup = () => setIsPopupOpen(true);
+  // const handleClosePopup = () => setIsPopupOpen(false);
   // const togglePopup = () => setIsPopupOpen(!isPopupOpen);
+
+  const editDriverinfo = info => {
+    setDriverInfo(info);
+    setShowModal(true);
+  };
   const toggleAddDriverRender = () => setAddDriverRender(!addDriverRender);
+  const changeEditInfoRenderStatus = () => setShowModal(false);
+  const editInfoModal = showModal ? <EditDriverModal onchange={changeEditInfoRenderStatus} data={driverInfo} /> : null;
 
   const actionColumn = {
     Header: 'Action', accessor: 'action',
@@ -27,12 +36,14 @@ const Driver = () => {
         <span className="text-left pointer m-auto">
           <i
             className="zmdi zmdi-edit hover:cursor-pointer"
+            onClick={() => editDriverinfo(row.original)}
             style={{ fontSize: "22px", color: "#ffcd4f" }}>
           </i>
         </span>
         <span className="text-left pointer m-auto">
           <i
             className="zmdi zmdi-delete hover:cursor-pointer"
+            onClick={e => { deleteDriver(row.original.driver_id); window.location.reload(); }}
             style={{ fontSize: "22px", color: "#FC0303" }}>
           </i>
         </span>
@@ -60,19 +71,18 @@ const Driver = () => {
     if (response.status === "SUCCESS") {
       window.location.reload();
       setPopupMessage(response.message);
-      setIsPopupOpen(false);
+      // setIsPopupOpen(false);
     } else {
       console.log("failed");
       setPopupMessage(response);
-      setIsPopupOpen(true);
+      // setIsPopupOpen(true);
     };
   }
 
   return (
     <div className=''>
-      <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
-        Hello
-      </Popup>
+      {/* <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>Hello</Popup> */}
+      {editInfoModal}
       <h1 className='text-5xl text-center'>Drivers</h1>
 
       {loading ? <SphereLoader /> :
