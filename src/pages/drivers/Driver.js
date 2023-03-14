@@ -5,6 +5,7 @@ import { Table } from '../../components/Tables';
 import { createDriver } from '../../utils/CRUD.services';
 import DeleteDriverModal from '../../components/modals/DeleteDriverModal';
 import EditDriverModal from '../../components/modals/editDriverModal';
+import Header from '../../components/Header/Header';
 import SphereLoader from '../../components/loaders/sphereLoader';
 
 const Driver = () => {
@@ -86,6 +87,7 @@ const Driver = () => {
     <div className=''>
       {deleteInfoModal}
       {editInfoModal}
+      <Header />
       <h1 className='text-5xl text-center mt-2 font-bold'>Drivers</h1>
 
       {loading ? <SphereLoader /> :

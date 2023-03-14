@@ -37,7 +37,7 @@ const DeleteDriverModal = ({ onchange, driver_id }) => {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">
-                    Delete driver info <i className="zmdi zmdi-edit ml-2"></i>
+                    Delete driver info <i className="zmdi zmdi-delete ml-2 text-red-500"></i>
                   </h3>
                 </div>
                 {/*body*/}
