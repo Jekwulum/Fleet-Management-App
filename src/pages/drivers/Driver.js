@@ -92,8 +92,8 @@ const Driver = () => {
 
       {loading ? <SphereLoader /> :
         <div className='transition-all duration-300 ease-in-out'>
+          
           <div className='mx-auto h-14 w-5/6 mt-4 flex justify-between items-center'>
-
             <div className=''>
               <button onClick={e => toggleAddDriverRender()}
                 className='flex gap-1 p-1 items-center text-center bg-custom-bgColor w-24 h-9 text-sm rounded-full text-gray-100 mr-4 hover:bg-gray-500 font-bold transition-all duration-300'>
