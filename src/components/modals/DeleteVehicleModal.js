@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { deleteDriver } from '../../utils/CRUD.services';
+import { deleteVehicle } from '../../utils/CRUD.services';
 
-const DeleteDriverModal = ({ onchange, data }) => {
+const DeleteVehicleModal = ({ onchange, data }) => {
   const [showModal, setShowModal] = useState(true);
-  const [enteredEmail, setEnteredEmail] = useState();
+  const [enteredLicensePlate, setEnteredLicensePlate] = useState();
 
-  const disabledBtn = enteredEmail && data.email === enteredEmail ? false : true;
+  const disabledBtn = enteredLicensePlate && data.license_plate === enteredLicensePlate ? false : true;
 
   const handleClose = () => {
     setShowModal(false);
@@ -13,9 +13,9 @@ const DeleteDriverModal = ({ onchange, data }) => {
   };
 
   const saveChanges = async () => {
-    const response = await deleteDriver(data.driver_id);
+    const response = await deleteVehicle(data.vehicle_id);
     if (response.status === "SUCCESS") {
-      alert("Success");
+      alert(`Success: ${response.message}`);
       handleClose();
       window.location.reload();
     } else {
@@ -36,18 +36,18 @@ const DeleteDriverModal = ({ onchange, data }) => {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">
-                    Delete driver info <i className="zmdi zmdi-delete ml-2 text-red-500"></i>
+                    Delete vehicle info <i className="zmdi zmdi-delete ml-2 text-red-500"></i>
                   </h3>
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    Delete driver info with email: <span className="text-red-500">{`${data.email}`}</span> <br />
-                    Enter driver email to confirm
+                    Delete vehicle info with License Plate Number: <span className="text-red-500">{`${data.license_plate}`}</span>? <br />
+                    Enter License Plate Number to confirm
                   </p>
 
-                  <input type="email" onChange={e => setEnteredEmail(e.target.value)}
-                    className={`border h-8 w-full text-sm m-1 p-2 ml-2 focus:outline-none bg-gray-200 text-custom-bgColor`} placeholder='Driver Email' />
+                  <input type="email" onChange={e => setEnteredLicensePlate(e.target.value)}
+                    className={`border h-8 w-full text-sm m-1 p-2 ml-2 focus:outline-none bg-gray-200 text-custom-bgColor`} placeholder='Vehicle License Plate Number' />
                 </div>
 
 
@@ -61,7 +61,7 @@ const DeleteDriverModal = ({ onchange, data }) => {
                     Close
                   </button>
                   <button
-                    disabled = {disabledBtn}
+                    disabled={disabledBtn}
                     className={`bg-red-500 text-white active:bg-custom-bgColor font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ${disabledBtn ? 'opacity-75' : ""}`}
                     type="button"
                     onClick={() => saveChanges()}
@@ -79,4 +79,4 @@ const DeleteDriverModal = ({ onchange, data }) => {
   )
 }
 
-export default DeleteDriverModal;
+export default DeleteVehicleModal;

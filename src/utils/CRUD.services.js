@@ -27,3 +27,8 @@ export const editVehicle = async (id, payload) => {
   const response = await Axios.patch(`/vehicle/${id}`, payload);
   return response.data;
 }
+
+export const deleteVehicle = async (id) => {
+  const response = await Axios.delete(`/vehicle/${id}`);
+  return response.data;
+}

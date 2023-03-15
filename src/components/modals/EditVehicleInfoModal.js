@@ -35,7 +35,6 @@ const EditVehicleInfoModal = ({ onchange, data }) => {
   }
 
   return (
-
     <>
       {showModal ? (
         <>

@@ -3,6 +3,7 @@ import { instance as Axios } from '../../utils/axios';
 import { vehicleTableConfig } from '../../utils/dataTableConfig';
 import { Table } from '../../components/Tables';
 import { createVehicle } from '../../utils/CRUD.services';
+import DeleteVehicleModal from '../../components/modals/DeleteVehicleModal';
 import EditVehicleInfoModal from '../../components/modals/EditVehicleInfoModal';
 import Header from '../../components/Header/Header';
 import SphereLoader from '../../components/loaders/sphereLoader';
@@ -10,11 +11,18 @@ import SphereLoader from '../../components/loaders/sphereLoader';
 const Vehicle = () => {
   const [vehcilesData, setVehiclesData] = useState();
   const [payload, setPayload] = useState({ model: "", fuel_capacity: "", license_plate: "", purchase_date: "" });
+  const [vehicleDeleteInfo, setVehicleDeleteInfo] = useState()
   const [loading, setLoading] = useState(true);
   const [addVehicleRender, setAddDriverRender] = useState(false);
   const [vehicleEditInfo, setvehicleEditInfo] = useState();
   const [showEditInfoModal, setShowEditInfoModal] = useState(false);
+  const [showDeleteModal, setDeleteModal] = useState(false);
   const isDisabledBtn = Object.values(payload).every(val => val === "");
+
+  const deleteVehicleInfo = info => {
+    setVehicleDeleteInfo(info);
+    setDeleteModal(true);
+  };
 
   const editVehicleInfo = info => {
     setvehicleEditInfo(info);
@@ -23,7 +31,9 @@ const Vehicle = () => {
 
   const toggleAddVehicleRender = () => setAddDriverRender(!addVehicleRender);
   const changeEditInfoRenderStatus = () => setShowEditInfoModal(false);
+  const changeDeleteInfoRenderStatus = () => setDeleteModal(false);
 
+  const deleteInfoModal = showDeleteModal ? <DeleteVehicleModal onchange={changeDeleteInfoRenderStatus} data={vehicleDeleteInfo} /> : null;
   const editInfoModal = showEditInfoModal ? <EditVehicleInfoModal onchange={changeEditInfoRenderStatus} data={vehicleEditInfo} /> : null;
 
   const actionColumn = {
@@ -40,7 +50,7 @@ const Vehicle = () => {
         <span className="text-left pointer m-auto">
           <i
             className="zmdi zmdi-delete hover:cursor-pointer"
-            // onClick={e => { deleteDriverInfo(row.original.driver_id); }}
+            onClick={e => { deleteVehicleInfo(row.original); }}
             style={{ fontSize: "22px", color: "#FC0303" }}>
           </i>
         </span>
@@ -74,6 +84,7 @@ const Vehicle = () => {
 
   return (
     <div>
+      {deleteInfoModal}
       {editInfoModal}
       <Header />
       <h1 className='text-5xl text-center mt-2 font-bold'>Vehicles</h1>

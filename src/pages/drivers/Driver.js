@@ -11,7 +11,7 @@ import SphereLoader from '../../components/loaders/sphereLoader';
 const Driver = () => {
   const [driversData, setdriversData] = useState();
   const [loading, setLoading] = useState(true);
-  const [driverDeleteInfo, setDriverDeleteInfo] = useState({}) // for delete modal
+  const [driverDeleteInfo, setDriverDeleteInfo] = useState() // for delete modal
   const [payload, setPayload] = useState({ first_name: "", last_name: "", phone: "", email: "" });
   const [addDriverRender, setAddDriverRender] = useState(false);
   const [driverInfo, setDriverInfo] = useState();
@@ -20,7 +20,6 @@ const Driver = () => {
 
 
   const deleteDriverInfo = info => {
-    console.log("id:", info)
     setDriverDeleteInfo(info);
     setDeleteModal(true);
   };
@@ -33,7 +32,6 @@ const Driver = () => {
   const changeEditInfoRenderStatus = () => setShowModal(false);
   const changeDeleteInfoRenderStatus = () => setDeleteModal(false);
 
-  // const deleteInfoModal = 
   const editInfoModal = showModal ? <EditDriverModal onchange={changeEditInfoRenderStatus} data={driverInfo} /> : null;
   const deleteInfoModal = showDeleteModal ? <DeleteDriverModal onchange={changeDeleteInfoRenderStatus} data={driverDeleteInfo} /> : null;
 
