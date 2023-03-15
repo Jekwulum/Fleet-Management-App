@@ -11,7 +11,7 @@ import SphereLoader from '../../components/loaders/sphereLoader';
 const Driver = () => {
   const [driversData, setdriversData] = useState();
   const [loading, setLoading] = useState(true);
-  const [driver_id, setDriver_Id] = useState("") // for delete modal
+  const [driverDeleteInfo, setDriverDeleteInfo] = useState({}) // for delete modal
   const [payload, setPayload] = useState({ first_name: "", last_name: "", phone: "", email: "" });
   const [addDriverRender, setAddDriverRender] = useState(false);
   const [driverInfo, setDriverInfo] = useState();
@@ -19,9 +19,9 @@ const Driver = () => {
   const [showDeleteModal, setDeleteModal] = useState(false);
 
 
-  const deleteDriverInfo = id => {
-    console.log("id:", id)
-    setDriver_Id(id);
+  const deleteDriverInfo = info => {
+    console.log("id:", info)
+    setDriverDeleteInfo(info);
     setDeleteModal(true);
   };
 
@@ -35,7 +35,7 @@ const Driver = () => {
 
   // const deleteInfoModal = 
   const editInfoModal = showModal ? <EditDriverModal onchange={changeEditInfoRenderStatus} data={driverInfo} /> : null;
-  const deleteInfoModal = showDeleteModal ? <DeleteDriverModal onchange={changeDeleteInfoRenderStatus} driver_id={driver_id} /> : null;
+  const deleteInfoModal = showDeleteModal ? <DeleteDriverModal onchange={changeDeleteInfoRenderStatus} data={driverDeleteInfo} /> : null;
 
   const actionColumn = {
     Header: 'Action', accessor: 'action',
@@ -51,7 +51,7 @@ const Driver = () => {
         <span className="text-left pointer m-auto">
           <i
             className="zmdi zmdi-delete hover:cursor-pointer"
-            onClick={e => { deleteDriverInfo(row.original.driver_id); }}
+            onClick={e => { deleteDriverInfo(row.original); }}
             style={{ fontSize: "22px", color: "#FC0303" }}>
           </i>
         </span>
@@ -92,7 +92,7 @@ const Driver = () => {
 
       {loading ? <SphereLoader /> :
         <div className='transition-all duration-300 ease-in-out'>
-          
+
           <div className='mx-auto h-14 w-5/6 mt-4 flex justify-between items-center'>
             <div className=''>
               <button onClick={e => toggleAddDriverRender()}

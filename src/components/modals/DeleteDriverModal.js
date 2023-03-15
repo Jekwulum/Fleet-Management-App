@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { deleteDriver } from '../../utils/CRUD.services';
 
-const DeleteDriverModal = ({ onchange, driver_id }) => {
-  console.log(driver_id);
+const DeleteDriverModal = ({ onchange, data }) => {
+  console.log(data);
   const [showModal, setShowModal] = useState(true);
-  const [enteredId, setEnteredId] = useState();
+  const [enteredEmail, setEnteredEmail] = useState();
 
-  const disabledBtn = enteredId && driver_id === enteredId ? false : true;
+  const disabledBtn = enteredEmail && data.email === enteredEmail ? false : true;
 
   const handleClose = () => {
     setShowModal(false);
@@ -14,7 +14,7 @@ const DeleteDriverModal = ({ onchange, driver_id }) => {
   };
 
   const saveChanges = async () => {
-    const response = await deleteDriver(driver_id);
+    const response = await deleteDriver(data.driver_id);
     if (response.status === "SUCCESS") {
       alert("Success");
       handleClose();
@@ -43,12 +43,12 @@ const DeleteDriverModal = ({ onchange, driver_id }) => {
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    Delete driver info with ID: <span className="text-red-500">{`${driver_id}`}</span> <br />
-                    Please enter driver ID to confirm
+                    Delete driver info with email: <span className="text-red-500">{`${data.email}`}</span> <br />
+                    Enter driver email to confirm
                   </p>
 
-                  <input type="text" onChange={e => setEnteredId(e.target.value)}
-                    className={`border h-8 w-full text-sm m-1 p-2 ml-2 focus:outline-none bg-gray-200 text-custom-bgColor`} placeholder='Driver ID' />
+                  <input type="email" onChange={e => setEnteredEmail(e.target.value)}
+                    className={`border h-8 w-full text-sm m-1 p-2 ml-2 focus:outline-none bg-gray-200 text-custom-bgColor`} placeholder='Driver Email' />
                 </div>
 
 
