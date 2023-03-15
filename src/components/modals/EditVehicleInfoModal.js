@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import Select from "react-select";
-import { editDriver } from "../../utils/CRUD.services";
+import React, { useState } from 'react';
+import Select from 'react-select';
+import moment from 'moment';
+import { editVehicle } from '../../utils/CRUD.services';
 
-export default function EditDriverModal({ onchange, data }) {
-  
+
+const EditVehicleInfoModal = ({ onchange, data }) => {
   const [showModal, setShowModal] = useState(true);
-  const [first_name, setFirstName] = useState(data.first_name);
-  const [last_name, setLastName] = useState(data.last_name);
-  const [phone, setPhone] = useState(data.phone);
+  const [model, setModel] = useState(data.model);
+  const [license_plate, setLicensePlate] = useState(data.license_plate);
+  const [fuel_capacity, setFuelCapacity] = useState(data.fuel_capacity);
+  const [purchase_date, setPurchaseDate] = useState(moment(data.purchase_date).format('yyyy-MM-DD'));
   const [is_active, setActiveStatus] = useState(data.is_active);
   const ACTIVE_STATUS = [
     { value: true, label: 'YES' },
@@ -18,19 +20,22 @@ export default function EditDriverModal({ onchange, data }) {
     setShowModal(false);
     onchange();
   };
+
   const saveChanges = async (id) => {
-    const payload = {first_name, last_name, phone, is_active};
+    const payload = { model, fuel_capacity, license_plate, purchase_date, is_active };
     console.log(payload);
-    const response = await editDriver(id, payload);
+    const response = await editVehicle(id, payload);
     if (response.status === "SUCCESS") {
-      alert("Success");
+      alert(`Success: ${response.message}`);
       handleClose();
       window.location.reload();
     } else {
       alert(`operation failed: ${response.message}`);
     };
   }
+
   return (
+
     <>
       {showModal ? (
         <>
@@ -45,43 +50,35 @@ export default function EditDriverModal({ onchange, data }) {
                   <h3 className="text-3xl font-semibold">
                     Edit driver info <i className="zmdi zmdi-edit ml-2"></i>
                   </h3>
-                  {/* <button
-                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
-                    </span>
-                  </button> */}
                 </div>
                 {/*body*/}
-                <div className="relative p-6 flex-auto">
-                  {/* <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    I always felt like I could do anything. That’s the main
-                    thing people are controlled by! Thoughts- their perception
-                    of themselves! They're slowed down by their perception of
-                    themselves. If you're taught you can’t do anything, you
-                    won’t do anything. I was taught I could do everything.
-                  </p> */}
-                  <div>
-                    <label htmlFor="first_name" className="inline-block">First Name:</label>
-                    <input type="text" id="first_name" onChange={e => setFirstName(e.target.value)} value={first_name}
-                      className="border h-8 w-[300px] text-sm m-1 p-2 ml-2 focus:outline-none bg-gray-200` text-custom-bgColor' placeholder='First Name' " />
+
+                <div class="grid grid-cols-1 gap-2 p-6">
+                  <div class="flex flex-col">
+                    <label htmlFor="model" className="text-sm">Model:</label>
+                    <input type="text" id="model" onChange={e => setModel(e.target.value)} value={model}
+                      className="border h-8 w-[300px] text-sm p-2 focus:outline-none bg-gray-200` text-custom-bgColor'" placeholder='Model' />
                   </div>
 
-                  <div>
-                    <label htmlFor="last_name">Last Name:</label>
-                    <input type="text" id="last_name" onChange={e => setLastName(e.target.value)} value={last_name}
-                      className="border h-8 w-[300px] text-sm m-1 p-2 ml-2 focus:outline-none bg-gray-200` text-custom-bgColor' placeholder='Last Name' " />
+                  <div class="flex flex-col">
+                    <label htmlFor="plate_no" className='text-sm'>Plate NO:</label>
+                    <input type="text" id="plate_no" onChange={e => setLicensePlate(e.target.value)} value={license_plate}
+                      className="border h-8 w-[300px] text-sm p-2 focus:outline-none bg-gray-200` text-custom-bgColor" placeholder='License plate NO' />
                   </div>
 
-                  <div className="space-x-[37px]">
-                    <label htmlFor="phone" className="inline-block text-right">Phone:</label>
-                    <input type="text" id="phone" onChange={e => setPhone(e.target.value)} value={phone}
-                      className="border h-8 w-[300px] text-sm m-1 p-2 ml-2 focus:outline-none bg-gray-200` text-custom-bgColor' placeholder='Phone' " />
+                  <div className="flex flex-col">
+                    <label htmlFor="fuel_capacity" className="text-sm">Fuel capacity:</label>
+                    <input type="text" id="fuel_capacity" onChange={e => setFuelCapacity(e.target.value)} value={fuel_capacity}
+                      className="border h-8 w-[300px] text-sm m-1 p-2 focus:outline-none bg-gray-200` text-custom-bgColor" placeholder='Fuel Capacity' />
                   </div>
 
-                  <div className="space-x-10 flex items-center mt-1">
+                  <div className="flex flex-col">
+                    <label for="date" class="text-gray-700 text-sm">Date Purchased:</label>
+                    <input type="date" id="date" name="date" onChange={e => setPurchaseDate(e.target.value)} value={purchase_date}
+                      className="border border-none rounded-md px-4 py-2 h-8 w-7/12 focus:outline-custom-bgColor focus:border-transparent" />
+                  </div>
+
+                  <div className="flex flex-col">
                     <label htmlFor="status">Status:</label>
                     <Select options={ACTIVE_STATUS}
                       isClearable={false} isSearchable={true}
@@ -105,7 +102,7 @@ export default function EditDriverModal({ onchange, data }) {
                   <button
                     className="bg-custom-bgColor text-white active:bg-custom-bgColor font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => saveChanges(data.driver_id)}
+                    onClick={() => saveChanges(data.vehicle_id)}
                   >
                     Save Changes
                   </button>
@@ -117,5 +114,7 @@ export default function EditDriverModal({ onchange, data }) {
         </>
       ) : null}
     </>
-  );
+  )
 }
+
+export default EditVehicleInfoModal;

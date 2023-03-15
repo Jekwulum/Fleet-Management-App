@@ -3,6 +3,7 @@ import { instance as Axios } from '../../utils/axios';
 import { vehicleTableConfig } from '../../utils/dataTableConfig';
 import { Table } from '../../components/Tables';
 import { createVehicle } from '../../utils/CRUD.services';
+import EditVehicleInfoModal from '../../components/modals/EditVehicleInfoModal';
 import Header from '../../components/Header/Header';
 import SphereLoader from '../../components/loaders/sphereLoader';
 
@@ -11,10 +12,19 @@ const Vehicle = () => {
   const [payload, setPayload] = useState({ model: "", fuel_capacity: "", license_plate: "", purchase_date: "" });
   const [loading, setLoading] = useState(true);
   const [addVehicleRender, setAddDriverRender] = useState(false);
-
+  const [vehicleEditInfo, setvehicleEditInfo] = useState();
+  const [showEditInfoModal, setShowEditInfoModal] = useState(false);
   const isDisabledBtn = Object.values(payload).every(val => val === "");
 
+  const editVehicleInfo = info => {
+    setvehicleEditInfo(info);
+    setShowEditInfoModal(true);
+  };
+
   const toggleAddVehicleRender = () => setAddDriverRender(!addVehicleRender);
+  const changeEditInfoRenderStatus = () => setShowEditInfoModal(false);
+
+  const editInfoModal = showEditInfoModal ? <EditVehicleInfoModal onchange={changeEditInfoRenderStatus} data={vehicleEditInfo} /> : null;
 
   const actionColumn = {
     Header: 'Action', accessor: 'action',
@@ -23,7 +33,7 @@ const Vehicle = () => {
         <span className="text-left pointer m-auto">
           <i
             className="zmdi zmdi-edit hover:cursor-pointer"
-            // onClick={() => editDriverinfo(row.original)}
+            onClick={() => editVehicleInfo(row.original)}
             style={{ fontSize: "22px", color: "#ffcd4f" }}>
           </i>
         </span>
@@ -64,6 +74,7 @@ const Vehicle = () => {
 
   return (
     <div>
+      {editInfoModal}
       <Header />
       <h1 className='text-5xl text-center mt-2 font-bold'>Vehicles</h1>
 
