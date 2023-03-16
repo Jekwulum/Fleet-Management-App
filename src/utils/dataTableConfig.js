@@ -38,6 +38,15 @@ export const maintenanceTableConfig = [
   }
 ];
 
+export const dispatchesTableConfig = [
+  { Header: 'First Name', accessor: 'first_name' },
+  { Header: 'Last Name', accessor: 'last_name' },
+  { Header: 'Model', accessor: 'model' },
+  { Header: 'Email', accessor: 'email' },
+  { Header: 'Phone', accessor: 'phone' },
+  { Header: 'Plate NO', accessor: 'license_plate' }
+];
+
 export const vehicleTableConfig = [
   { Header: 'Plate No', accessor: 'license_plate' },
   { Header: 'Model', accessor: 'model' },
