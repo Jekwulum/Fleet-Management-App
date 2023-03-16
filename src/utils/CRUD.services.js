@@ -69,3 +69,9 @@ export const deleteMaintenance = async (id) => {
   const response = await Axios.delete(`/maintenance/${id}`);
   return response.data;
 }
+
+// dispatch
+export const createDispatch = async (payload) => {
+  const response = await Axios.post('/dispatch', payload);
+  return response.data;
+}
