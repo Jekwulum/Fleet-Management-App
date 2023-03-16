@@ -7,6 +7,11 @@ export const createDriver = async (payload) => {
   return response.data;
 }
 
+export const getDrivers = async () => {
+  const response = await Axios.get('/driver');
+  return response.data;
+}
+
 export const editDriver = async (id, payload) => {
   const response = await Axios.patch(`/driver/${id}`, payload);
   return response.data;
@@ -34,3 +39,7 @@ export const deleteVehicle = async (id) => {
 }
 
 // trips
+export const createTrip = async (payload) => {
+  const response = await Axios.post('/trip', payload);
+  return response.data;
+}
