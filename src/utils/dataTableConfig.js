@@ -49,7 +49,7 @@ export const tripsTableConfig = [
     Header: 'Trip Date',
     accessor: 'trip_date',
     Cell: ({ row }) => { 
-      return <span>{moment(row.original.purchase_date).format('MMMM D, YYYY - HH:MM')}</span>
+      return <span>{moment(row.original.purchase_date).format('MMMM D, YYYY')}</span>
     }
   }
 ];

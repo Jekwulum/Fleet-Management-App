@@ -11,6 +11,7 @@ import SphereLoader from '../../components/loaders/sphereLoader';
 const Trips = () => {
   const [tripsData, setTripsData] = useState();
   const [allDrivers, setAllDrivers] = useState(); // from BE
+  const [allVehicles, setAllVehicles] = useState(); // from BE
   const [vehiclesData, setVehiclesData] = useState(); // mapped data
   const [driversData, setDriversData] = useState(); // mapped data
   const [loading, setLoading] = useState(true);
@@ -53,7 +54,15 @@ const Trips = () => {
     }
   };
 
-  const tableObject = [...tripsTableConfig, driverColumn, actionColumn];
+  const vehicleColumn = {
+    Header: 'Vehicle', accessor: 'vehicle',
+    Cell: ({ row }) => {
+      const vehicleObj = allVehicles.find(obj => obj.vehicle_id === row.original.vehicle_id);
+      return <p>{`${vehicleObj.model} ${vehicleObj.license_plate}`}</p>
+    }
+  };
+
+  const tableObject = [...tripsTableConfig, driverColumn, vehicleColumn, actionColumn];
   const createNewTrip = async (e) => {
     e.preventDefault();
     const response = await createTrip(payload);
@@ -84,6 +93,7 @@ const Trips = () => {
 
     Axios.get(`/vehicle`)
       .then(({ data: responseData }) => {
+        setAllVehicles(responseData.data);
         setVehiclesData(vehiclesDataMapper(responseData.data));
         setLoading(false);
       })
