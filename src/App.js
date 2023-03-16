@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Driver from './pages/drivers/Driver';
 import Home from './pages/Home';
 import Vehicle from './pages/vehicles/Vehicle';
+import Trips from './pages/trips/Trips';
 import './App.css';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         {["/", "/home"].map((path, index) => <Route exact path={path} element={<Home />} key={index} />)}
         <Route exact path='/driver' element={<Driver />} />
         <Route exact path='/vehicle' element={<Vehicle />} />
+        <Route exact path='/trips' element={<Trips />} />
       </Routes>
     </Router>
   );

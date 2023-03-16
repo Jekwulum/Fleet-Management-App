@@ -32,3 +32,5 @@ export const deleteVehicle = async (id) => {
   const response = await Axios.delete(`/vehicle/${id}`);
   return response.data;
 }
+
+// trips

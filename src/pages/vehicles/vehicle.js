@@ -9,7 +9,7 @@ import Header from '../../components/Header/Header';
 import SphereLoader from '../../components/loaders/sphereLoader';
 
 const Vehicle = () => {
-  const [vehcilesData, setVehiclesData] = useState();
+  const [vehiclesData, setVehiclesData] = useState();
   const [payload, setPayload] = useState({ model: "", fuel_capacity: "", license_plate: "", purchase_date: "" });
   const [vehicleDeleteInfo, setVehicleDeleteInfo] = useState()
   const [loading, setLoading] = useState(true);
@@ -135,7 +135,7 @@ const Vehicle = () => {
             </div> : null}
 
           <div className='mx-auto w-5/6 mt-5'>
-            <Table columnsHeaders={tableObject} data={vehcilesData} />
+            <Table columnsHeaders={tableObject} data={vehiclesData} />
           </div>
         </div>
       }

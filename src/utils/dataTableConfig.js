@@ -40,3 +40,16 @@ export const vehicleTableConfig = [
     }
   }
 ];
+
+export const tripsTableConfig = [
+  { Header: 'Start Location', accessor: 'start_location' },
+  { Header: 'End Location', accessor: 'end_location' },
+  { Header: 'Distance (KM)', accessor: 'distance' },
+  {
+    Header: 'Trip Date',
+    accessor: 'trip_date',
+    Cell: ({ row }) => { 
+      return <span>{moment(row.original.purchase_date).format('MMMM D, YYYY - HH:MM')}</span>
+    }
+  }
+];
