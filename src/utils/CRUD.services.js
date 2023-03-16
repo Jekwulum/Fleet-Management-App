@@ -64,3 +64,8 @@ export const editMaintenance = async (id, payload) => {
   const response = await Axios.patch(`/maintenance/${id}`, payload);
   return response.data;
 }
+
+export const deleteMaintenance = async (id) => {
+  const response = await Axios.delete(`/maintenance/${id}`);
+  return response.data;
+}

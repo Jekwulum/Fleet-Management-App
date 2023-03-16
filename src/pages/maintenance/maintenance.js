@@ -7,6 +7,7 @@ import { instance as Axios } from '../../utils/axios';
 import { createMaintenance } from '../../utils/CRUD.services';
 import { maintenanceTableConfig } from '../../utils/dataTableConfig';
 import { vehiclesDataMapper } from '../../utils/mappers';
+import DeleteMaintenanceModal from '../../components/modals/DeleteMaintenanceModal';
 import EditMaintenanceModal from '../../components/modals/EditMaintenanceModal';
 
 const Maintenance = () => {
@@ -19,18 +20,27 @@ const Maintenance = () => {
   const isDisabledBtn = Object.values(payload).every(val => val === "" || val === [] || val === 0);
 
   const [addMaintenanceRender, setAddMaintenanceRender] = useState(false);
+  const [maintenanceDeleteInfo, setMaintenanceDeleteInfo] = useState();
+  const [showDeleteModal, setDeleteModal] = useState(false);
   const [showEditInfoModal, setShowEditInfoModal] = useState(false);
   const [maintenanceEditInfo, setMaintenanceEditInfo] = useState();
 
 
   const toggleAddMaintenanceRender = () => setAddMaintenanceRender(!addMaintenanceRender);
+  const changeMaintenanceInfoRenderStatus = () => setDeleteModal(false);
   const changeEditInfoRenderStatus = () => setShowEditInfoModal(false);
+
+  const deleteMaintenanceInfo = info => {
+    setMaintenanceDeleteInfo(info);
+    setDeleteModal(true);
+  };
 
   const editMaintenanceInfo = info => {
     setMaintenanceEditInfo(info);
     setShowEditInfoModal(true);
   };
 
+  const deleteInfoModal = showDeleteModal ? <DeleteMaintenanceModal onchange={changeMaintenanceInfoRenderStatus} data={maintenanceDeleteInfo} /> : null;
   const editInfoModal = showEditInfoModal ? <EditMaintenanceModal onchange={changeEditInfoRenderStatus} data={maintenanceEditInfo} /> : null;
 
   const actionColumn = {
@@ -47,7 +57,7 @@ const Maintenance = () => {
         <span className="text-left pointer m-auto">
           <i
             className="zmdi zmdi-delete hover:cursor-pointer"
-            // onClick={e => { deleteTripInfo(row.original); }}
+            onClick={e => { deleteMaintenanceInfo(row.original); }}
             style={{ fontSize: "22px", color: "#FC0303" }}>
           </i>
         </span>
@@ -98,6 +108,7 @@ const Maintenance = () => {
 
   return (
     <div>
+      {deleteInfoModal}
       {editInfoModal}
       <Header />
       <h1 className='text-5xl text-center mt-2 font-bold'>Maintenances</h1>
