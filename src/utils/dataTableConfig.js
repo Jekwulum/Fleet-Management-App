@@ -18,6 +18,26 @@ export const driverTableConfig = [
   }
 ];
 
+export const maintenanceTableConfig = [
+  { Header: 'Cost ($)', accessor: 'cost' },
+  {
+    Header: 'Parts', accessor: 'parts_used',
+    Cell: ({ row }) =>
+      <div>
+        {row.original.parts_used.map((part, idx) => {
+          return(<span key={idx}>{part}{idx !== row.original.parts_used.length - 1 ? ',' : '' } <br /></span>)
+        })}
+      </div>
+  },
+  {
+    Header: 'Date',
+    accessor: 'maintenance_date',
+    Cell: ({ row }) => {
+      return <span>{moment(row.original.maintenance_date).format('MMMM D, YYYY')}</span>
+    }
+  }
+];
+
 export const vehicleTableConfig = [
   { Header: 'Plate No', accessor: 'license_plate' },
   { Header: 'Model', accessor: 'model' },
@@ -25,7 +45,7 @@ export const vehicleTableConfig = [
   {
     Header: 'Purchase Date',
     accessor: 'purchase_date',
-    Cell: ({ row }) => { 
+    Cell: ({ row }) => {
       return <span>{moment(row.original.purchase_date).format('MMMM D, YYYY')}</span>
     }
   },
@@ -48,7 +68,7 @@ export const tripsTableConfig = [
   {
     Header: 'Trip Date',
     accessor: 'trip_date',
-    Cell: ({ row }) => { 
+    Cell: ({ row }) => {
       return <span>{moment(row.original.purchase_date).format('MMMM D, YYYY')}</span>
     }
   }
