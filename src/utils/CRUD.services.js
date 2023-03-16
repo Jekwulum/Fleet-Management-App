@@ -43,3 +43,8 @@ export const createTrip = async (payload) => {
   const response = await Axios.post('/trip', payload);
   return response.data;
 }
+
+export const editTrip = async (id, payload) => {
+  const response = await Axios.patch(`/trip/${id}`, payload);
+  return response.data;
+}

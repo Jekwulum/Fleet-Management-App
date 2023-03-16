@@ -5,6 +5,7 @@ import { tripsTableConfig } from '../../utils/dataTableConfig';
 import { Table } from '../../components/Tables';
 import { createTrip } from '../../utils/CRUD.services';
 import { driversDataMapper, vehiclesDataMapper } from '../../utils/mappers';
+import EditTripModal from '../../components/modals/EditTripModal';
 import Header from '../../components/Header/Header';
 import SphereLoader from '../../components/loaders/sphereLoader';
 
@@ -19,10 +20,19 @@ const Trips = () => {
     driver_id: "", start_location: "", end_location: "",
     vehicle_id: "", distance: "", trip_date: ""
   });
+  const [addTripRender, setAddTripRender] = useState(false);
+  const [tripEditInfo, setTripEditInfo] = useState();
+  const [showEditInfoModal, setShowEditInfoModal] = useState(false);
   const isDisabledBtn = Object.values(payload).every(val => val === "");
 
-  const [addTripRender, setAddTripRender] = useState(false);
+  const editTripInfo = info => {
+    setTripEditInfo(info);
+    setShowEditInfoModal(true);
+  };
   const toggleAddTripRender = () => setAddTripRender(!addTripRender);
+  const changeEditInfoRenderStatus = () => setShowEditInfoModal(false);
+
+  const editInfoModal = showEditInfoModal ? <EditTripModal onchange={changeEditInfoRenderStatus} data={tripEditInfo} /> : null;
 
   const actionColumn = {
     Header: 'Action', accessor: 'action',
@@ -31,7 +41,7 @@ const Trips = () => {
         <span className="text-left pointer m-auto">
           <i
             className="zmdi zmdi-edit hover:cursor-pointer"
-            // onClick={() => editVehicleInfo(row.original)}
+            onClick={() => editTripInfo(row.original)}
             style={{ fontSize: "22px", color: "#ffcd4f" }}>
           </i>
         </span>
@@ -102,6 +112,7 @@ const Trips = () => {
 
   return (
     <div>
+      {editInfoModal}
       <Header />
       <h1 className='text-5xl text-center mt-2 font-bold'>Trips</h1>
       {loading ? <SphereLoader /> :
