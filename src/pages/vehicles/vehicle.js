@@ -11,7 +11,7 @@ import SphereLoader from '../../components/loaders/sphereLoader';
 const Vehicle = () => {
   const [vehiclesData, setVehiclesData] = useState();
   const [payload, setPayload] = useState({ model: "", fuel_capacity: "", license_plate: "", purchase_date: "" });
-  const [vehicleDeleteInfo, setVehicleDeleteInfo] = useState()
+  const [vehicleDeleteInfo, setVehicleDeleteInfo] = useState();
   const [loading, setLoading] = useState(true);
   const [addVehicleRender, setAddDriverRender] = useState(false);
   const [vehicleEditInfo, setvehicleEditInfo] = useState();

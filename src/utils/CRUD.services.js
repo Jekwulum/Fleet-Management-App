@@ -48,3 +48,8 @@ export const editTrip = async (id, payload) => {
   const response = await Axios.patch(`/trip/${id}`, payload);
   return response.data;
 }
+
+export const deleteTrip = async (id) => {
+  const response = await Axios.delete(`/trip/${id}`);
+  return response.data;
+}

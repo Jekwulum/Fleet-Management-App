@@ -5,6 +5,7 @@ import { tripsTableConfig } from '../../utils/dataTableConfig';
 import { Table } from '../../components/Tables';
 import { createTrip } from '../../utils/CRUD.services';
 import { driversDataMapper, vehiclesDataMapper } from '../../utils/mappers';
+import DeleteTripModal from '../../components/modals/DeleteTripModal';
 import EditTripModal from '../../components/modals/EditTripModal';
 import Header from '../../components/Header/Header';
 import SphereLoader from '../../components/loaders/sphereLoader';
@@ -21,17 +22,26 @@ const Trips = () => {
     vehicle_id: "", distance: "", trip_date: ""
   });
   const [addTripRender, setAddTripRender] = useState(false);
+  const [tripDeleteInfo, setTripDeleteInfo] = useState();
   const [tripEditInfo, setTripEditInfo] = useState();
   const [showEditInfoModal, setShowEditInfoModal] = useState(false);
+  const [showDeleteModal, setDeleteModal] = useState(false);
   const isDisabledBtn = Object.values(payload).every(val => val === "");
+
+  const deleteTripInfo = info => {
+    setTripDeleteInfo(info);
+    setDeleteModal(true);
+  };
 
   const editTripInfo = info => {
     setTripEditInfo(info);
     setShowEditInfoModal(true);
   };
   const toggleAddTripRender = () => setAddTripRender(!addTripRender);
+  const changeDeleteInfoRenderStatus = () => setDeleteModal(false);
   const changeEditInfoRenderStatus = () => setShowEditInfoModal(false);
 
+  const deleteInfoModal = showDeleteModal ? <DeleteTripModal onchange={changeDeleteInfoRenderStatus} data={tripDeleteInfo} /> : null;
   const editInfoModal = showEditInfoModal ? <EditTripModal onchange={changeEditInfoRenderStatus} data={tripEditInfo} /> : null;
 
   const actionColumn = {
@@ -48,7 +58,7 @@ const Trips = () => {
         <span className="text-left pointer m-auto">
           <i
             className="zmdi zmdi-delete hover:cursor-pointer"
-            // onClick={e => { deleteVehicleInfo(row.original); }}
+            onClick={e => { deleteTripInfo(row.original); }}
             style={{ fontSize: "22px", color: "#FC0303" }}>
           </i>
         </span>
@@ -112,6 +122,7 @@ const Trips = () => {
 
   return (
     <div>
+      {deleteInfoModal}
       {editInfoModal}
       <Header />
       <h1 className='text-5xl text-center mt-2 font-bold'>Trips</h1>
