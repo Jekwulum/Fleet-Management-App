@@ -170,7 +170,7 @@ const Trips = () => {
 
 
               <div class="flex items-center space-x-2 mx-auto my-1">
-                <label for="date" class="text-gray-700 text-sm">Trip Date:</label>
+                <label htmlFor="date" class="text-gray-700 text-sm">Trip Date:</label>
                 <input type="date" id="date" name="date" onChange={e => setPayload({ ...payload, trip_date: e.target.value })}
                   className="border border-none rounded-md px-4 py-2 h-8 w-8/12 focus:outline-custom-bgColor focus:border-transparent" />
               </div>

@@ -72,7 +72,7 @@ const EditVehicleInfoModal = ({ onchange, data }) => {
                   </div>
 
                   <div className="flex flex-col">
-                    <label for="date" class="text-gray-700 text-sm">Date Purchased:</label>
+                    <label htmlFor="date" class="text-gray-700 text-sm">Date Purchased:</label>
                     <input type="date" id="date" name="date" onChange={e => setPurchaseDate(e.target.value)} value={purchase_date}
                       className="border border-none rounded-md px-4 py-2 h-8 w-7/12 focus:outline-custom-bgColor focus:border-transparent" />
                   </div>

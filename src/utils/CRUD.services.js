@@ -55,3 +55,7 @@ export const deleteTrip = async (id) => {
 }
 
 // maintenance
+export const createMaintenance = async (payload) => {
+  const response = await Axios.post('/maintenance', payload);
+  return response.data;
+}

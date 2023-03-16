@@ -66,7 +66,7 @@ const EditTripModal = ({ onchange, data }) => {
                   </div>
 
                   <div className="flex flex-col">
-                    <label for="date" class="text-gray-700 text-sm">Trip Date:</label>
+                    <label htmlFor="date" class="text-gray-700 text-sm">Trip Date:</label>
                     <input type="date" id="date" name="date" onChange={e => setTripDate(e.target.value)} value={trip_date}
                       className="border border-none rounded-md px-4 py-2 h-8 w-7/12 focus:outline-custom-bgColor focus:border-transparent" />
                   </div>
