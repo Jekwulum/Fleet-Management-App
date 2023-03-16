@@ -5,6 +5,7 @@ import { driversDataMapper, vehiclesDataMapper } from '../../utils/mappers';
 import { dispatchesTableConfig } from '../../utils/dataTableConfig';
 import { Table } from '../../components/Tables';
 import { createDispatch } from '../../utils/CRUD.services';
+import EditDispatchModal from '../../components/modals/EditDispatchModal';
 import Header from '../../components/Header/Header';
 import SphereLoader from '../../components/loaders/sphereLoader';
 
@@ -15,11 +16,22 @@ const Dispatch = () => {
   const [vehiclesData, setVehiclesData] = useState(); // mapped data
   const [driversData, setDriversData] = useState(); // mapped data
   const [payload, setPayload] = useState({ driver_id: "", vehicle_id: "" });
+  const [dispatchEditInfo, setDispatchEditInfo] = useState();
+  const [showEditInfoModal, setShowEditInfoModal] = useState(false);
   const isDisabledBtn = Object.values(payload).every(val => val === "");
 
   const [addDispatchRender, setAddDispatchRender] = useState(false);
 
+  const editDispatchInfo = info => {
+    setDispatchEditInfo(info);
+    setShowEditInfoModal(true);
+  };
+
   const toggleAddDispatchRender = () => setAddDispatchRender(!addDispatchRender);
+  const changeEditInfoRenderStatus = () => setShowEditInfoModal(false);
+
+  const editInfoModal = showEditInfoModal ?
+    <EditDispatchModal onchange={changeEditInfoRenderStatus} data={dispatchEditInfo} driversData={driversData} vehiclesData={vehiclesData} /> : null;
 
   const actionColumn = {
     Header: 'Action', accessor: 'action',
@@ -28,7 +40,7 @@ const Dispatch = () => {
         <span className="text-left pointer m-auto">
           <i
             className="zmdi zmdi-edit hover:cursor-pointer"
-            // onClick={() => editTripInfo(row.original)}
+            onClick={() => editDispatchInfo(row.original)}
             style={{ fontSize: "22px", color: "#ffcd4f" }}>
           </i>
         </span>
@@ -83,6 +95,7 @@ const Dispatch = () => {
 
   return (
     <div>
+      {editInfoModal}
       <Header />
       <h1 className='text-5xl text-center mt-2 font-bold'>Dispatch</h1>
       {loading ? <SphereLoader /> :

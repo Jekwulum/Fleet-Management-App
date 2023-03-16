@@ -75,3 +75,8 @@ export const createDispatch = async (payload) => {
   const response = await Axios.post('/dispatch', payload);
   return response.data;
 }
+
+export const editDispatch = async (id, payload) => {
+  const response = await Axios.patch(`/dispatch/${id}`, payload);
+  return response.data;
+}
