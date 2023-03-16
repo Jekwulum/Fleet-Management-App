@@ -5,6 +5,7 @@ import { driversDataMapper, vehiclesDataMapper } from '../../utils/mappers';
 import { dispatchesTableConfig } from '../../utils/dataTableConfig';
 import { Table } from '../../components/Tables';
 import { createDispatch } from '../../utils/CRUD.services';
+import DeleteDispatchModal from '../../components/modals/DeleteDispatchModal';
 import EditDispatchModal from '../../components/modals/EditDispatchModal';
 import Header from '../../components/Header/Header';
 import SphereLoader from '../../components/loaders/sphereLoader';
@@ -17,10 +18,17 @@ const Dispatch = () => {
   const [driversData, setDriversData] = useState(); // mapped data
   const [payload, setPayload] = useState({ driver_id: "", vehicle_id: "" });
   const [dispatchEditInfo, setDispatchEditInfo] = useState();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditInfoModal, setShowEditInfoModal] = useState(false);
   const isDisabledBtn = Object.values(payload).every(val => val === "");
 
   const [addDispatchRender, setAddDispatchRender] = useState(false);
+  const [dispatchDeleteInfo, setDispatchDeleteInfo] = useState();
+
+  const deleteDispatchInfo = info => {
+    setDispatchDeleteInfo(info);
+    setShowDeleteModal(true);
+  };
 
   const editDispatchInfo = info => {
     setDispatchEditInfo(info);
@@ -28,8 +36,10 @@ const Dispatch = () => {
   };
 
   const toggleAddDispatchRender = () => setAddDispatchRender(!addDispatchRender);
+  const changeDeleteInfoRenderStatus = () => setShowDeleteModal(false);
   const changeEditInfoRenderStatus = () => setShowEditInfoModal(false);
 
+  const deleteInfoModal = showDeleteModal ? <DeleteDispatchModal onchange={changeDeleteInfoRenderStatus} data={dispatchDeleteInfo} /> : null;
   const editInfoModal = showEditInfoModal ?
     <EditDispatchModal onchange={changeEditInfoRenderStatus} data={dispatchEditInfo} driversData={driversData} vehiclesData={vehiclesData} /> : null;
 
@@ -47,7 +57,7 @@ const Dispatch = () => {
         <span className="text-left pointer m-auto">
           <i
             className="zmdi zmdi-delete hover:cursor-pointer"
-            // onClick={e => { deleteTripInfo(row.original); }}
+            onClick={e => { deleteDispatchInfo(row.original); }}
             style={{ fontSize: "22px", color: "#FC0303" }}>
           </i>
         </span>
@@ -95,6 +105,7 @@ const Dispatch = () => {
 
   return (
     <div>
+      {deleteInfoModal}
       {editInfoModal}
       <Header />
       <h1 className='text-5xl text-center mt-2 font-bold'>Dispatch</h1>

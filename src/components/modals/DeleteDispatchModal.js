@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { deleteTrip } from '../../utils/CRUD.services';
+import { deleteDispatch } from '../../utils/CRUD.services';
 
-const DeleteTripModal = ({ onchange, data }) => {
+const DeleteDispatchModal = ({onchange, data}) => {
 
   const [showModal, setShowModal] = useState(true);
   const [enteredConfirmData, setEnteredConfirmData] = useState();
 
-  const disabledBtn = enteredConfirmData && "DELETE TRIP" === enteredConfirmData ? false : true;
+  const disabledBtn = enteredConfirmData && "DELETE DISPATCH" === enteredConfirmData ? false : true;
 
   const handleClose = () => {
     setShowModal(false);
@@ -14,7 +14,7 @@ const DeleteTripModal = ({ onchange, data }) => {
   };
 
   const saveChanges = async () => {
-    const response = await deleteTrip(data.trip_id);
+    const response = await deleteDispatch(data.dispatch_id);
     if (response.status === "SUCCESS") {
       alert(`Success: ${response.message}`);
       handleClose();
@@ -43,8 +43,8 @@ const DeleteTripModal = ({ onchange, data }) => {
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    Delete this trip information? <br />
-                    Enter <span className='text-red-500 text-sm font-bold'>DELETE TRIP</span> to confirm
+                    Delete this dispatch information? <br />
+                    Enter <span className='text-red-500 font-bold text-sm'>DELETE DISPATCH</span> to confirm
                   </p>
 
                   <input type="email" onChange={e => setEnteredConfirmData(e.target.value)}
@@ -80,4 +80,4 @@ const DeleteTripModal = ({ onchange, data }) => {
   )
 }
 
-export default DeleteTripModal
+export default DeleteDispatchModal;

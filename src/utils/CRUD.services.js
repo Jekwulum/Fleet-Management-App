@@ -80,3 +80,8 @@ export const editDispatch = async (id, payload) => {
   const response = await Axios.patch(`/dispatch/${id}`, payload);
   return response.data;
 }
+
+export const deleteDispatch = async (id) => {
+  const response = await Axios.delete(`/dispatch/${id}`);
+  return response.data;
+}
