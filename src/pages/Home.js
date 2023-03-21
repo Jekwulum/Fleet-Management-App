@@ -33,7 +33,7 @@ const Home = () => {
 
         {loading ? <SphereLoader /> :
           <div>
-            <div className='bg-red-200 m-3 flex flex-col gap-4 md:flex-row items-center w-full mx-auto justify-center md:gap-10'>
+            <div className='bg-gray-50 m-3 p-3 flex flex-col gap-4 md:flex-row items-center w-5/6 mx-auto justify-center md:w-2/3 md:h-64 md:gap-10 rounded-lg'>
               <Card data={driversData} icon={`zmdi zmdi-accounts-alt`} label="Drivers" />
 
               <Card data={vehiclesData} icon={`zmdi zmdi-truck`} label="Vehicles" />
