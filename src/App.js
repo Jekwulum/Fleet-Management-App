@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        {["/", "/home"].map((path, index) => <Route exact path={path} element={<Home />} key={index} />)}
+        {["/", "/home", "/dashboard"].map((path, index) => <Route exact path={path} element={<Home />} key={index} />)}
         <Route exact path='/dispatch' element={<Dispatch />} />
         <Route exact path='/driver' element={<Driver />} />
         <Route exact path='/maintenance' element={<Maintenance />} />
