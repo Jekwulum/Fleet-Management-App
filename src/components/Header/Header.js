@@ -12,17 +12,29 @@ const Header = () => {
 
       <nav>
         <ul className='flex gap-3 text-white mx-8 font-bold'>
+
           <li className='hover:cursor-pointer hover:text-gray-300 m-1'>
             <Link to={"/"}>Home</Link>
           </li>
+
           <li className='hover:cursor-pointer hover:text-gray-300 m-1'>
             <Link to={"/driver"}>Drivers</Link>
           </li>
+
           <li className='hover:cursor-pointer hover:text-gray-300 m-1'>
             <Link to={"/vehicle"}>Vehicles</Link>
           </li>
+
           <li className='hover:cursor-pointer hover:text-gray-300 m-1'>
             <Link to={"/trips"}>Trips</Link>
+          </li>
+
+          <li className='hover:cursor-pointer hover:text-gray-300 m-1'>
+            <Link to={"/maintenance"}>Maintenance</Link>
+          </li>
+
+          <li className='hover:cursor-pointer hover:text-gray-300 m-1'>
+            <Link to={"/dispatch"}>Dispatch</Link>
           </li>
         </ul>
       </nav>
