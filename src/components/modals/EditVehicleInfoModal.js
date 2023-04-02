@@ -12,8 +12,8 @@ const EditVehicleInfoModal = ({ onchange, data }) => {
   const [purchase_date, setPurchaseDate] = useState(moment(data.purchase_date).format('yyyy-MM-DD'));
   const [is_active, setActiveStatus] = useState(data.is_active);
   const ACTIVE_STATUS = [
-    { value: true, label: 'YES' },
-    { value: false, label: 'NO' }
+    { value: true, label: 'ACTIVE' },
+    { value: false, label: 'INACTIVE' }
   ];
 
   const handleClose = () => {
