@@ -45,21 +45,21 @@ const EditMaintenanceModal = ({ onchange, data }) => {
                 </div>
                 {/*body*/}
 
-                <div class="grid grid-cols-1 gap-2 p-6">
-                  <div class="flex flex-col">
+                <div className="grid grid-cols-1 gap-2 p-6">
+                  <div className="flex flex-col">
                     <label htmlFor="model" className="text-sm">Cost:</label>
                     <input type="text" id="model" onChange={e => setCost(e.target.value)} value={cost}
                       className="border h-8 w-[300px] text-sm p-2 focus:outline-none bg-gray-200` text-custom-bgColor'" placeholder='Cost' />
                   </div>
 
-                  <div class="flex flex-col">
+                  <div className="flex flex-col">
                     <label htmlFor="plate_no" className='text-sm'>Parts Used</label>
                     <input type="text" id="plate_no" onChange={e => setPartsUsed([e.target.value])} value={[...parts_used]}
                       className="border h-8 w-[300px] text-sm p-2 focus:outline-none bg-gray-200` text-custom-bgColor" placeholder='Parts Used' />
                   </div>
 
                   <div className="flex flex-col">
-                    <label htmlFor="date" class="text-gray-700 text-sm">Maintenance Date:</label>
+                    <label htmlFor="date" className="text-gray-700 text-sm">Maintenance Date:</label>
                     <input type="date" id="date" name="date" onChange={e => setMaintenanceDate(e.target.value)} value={maintenance_date}
                       className="border border-none rounded-md px-4 py-2 h-8 w-7/12 focus:outline-custom-bgColor focus:border-transparent" />
                   </div>

@@ -121,8 +121,8 @@ const Vehicle = () => {
               {/* <input type="text" onChange={e => setPayload({ ...payload, phone: e.target.value })}
                   className='border h-8 w-3/6 text-sm m-1 p-4 focus:outline-none bg-gray-200` text-custom-bgColor' placeholder='Phone' /> */}
 
-              <div class="flex flex-col md:flex-row items-center space-x-2 mx-auto my-1">
-                <label htmlFor="date" class="text-gray-700 text-sm">Date Purchased:</label>
+              <div className="flex flex-col md:flex-row items-center space-x-2 mx-auto my-1">
+                <label htmlFor="date" className="text-gray-700 text-sm">Date Purchased:</label>
                 <input type="date" id="date" name="date" onChange={e => setPayload({ ...payload, purchase_date: e.target.value })}
                   className="border border-none rounded-md px-4 py-2 h-8 md:w-7/12 focus:outline-custom-bgColor focus:border-transparent" />
               </div>

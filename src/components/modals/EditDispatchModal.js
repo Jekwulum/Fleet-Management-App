@@ -43,7 +43,7 @@ const EditDispatchModal = ({ onchange, data, vehiclesData, driversData }) => {
                 </div>
                 {/*body*/}
 
-                <div class="grid grid-cols-1 gap-2 p-6">
+                <div className="grid grid-cols-1 gap-2 p-6">
                   <Select options={driversData}
                     isClearable={false} isSearchable={true}
                     maxMenuHeight={250} menuPlacement="bottom" placeholder="Select Driver"

@@ -52,14 +52,14 @@ const EditVehicleInfoModal = ({ onchange, data }) => {
                 </div>
                 {/*body*/}
 
-                <div class="grid grid-cols-1 gap-2 p-6">
-                  <div class="flex flex-col">
+                <div className="grid grid-cols-1 gap-2 p-6">
+                  <div className="flex flex-col">
                     <label htmlFor="model" className="text-sm">Model:</label>
                     <input type="text" id="model" onChange={e => setModel(e.target.value)} value={model}
                       className="border h-8 w-[300px] text-sm p-2 focus:outline-none bg-gray-200` text-custom-bgColor'" placeholder='Model' />
                   </div>
 
-                  <div class="flex flex-col">
+                  <div className="flex flex-col">
                     <label htmlFor="plate_no" className='text-sm'>Plate NO:</label>
                     <input type="text" id="plate_no" onChange={e => setLicensePlate(e.target.value)} value={license_plate}
                       className="border h-8 w-[300px] text-sm p-2 focus:outline-none bg-gray-200` text-custom-bgColor" placeholder='License plate NO' />
@@ -72,7 +72,7 @@ const EditVehicleInfoModal = ({ onchange, data }) => {
                   </div>
 
                   <div className="flex flex-col">
-                    <label htmlFor="date" class="text-gray-700 text-sm">Date Purchased:</label>
+                    <label htmlFor="date" className="text-gray-700 text-sm">Date Purchased:</label>
                     <input type="date" id="date" name="date" onChange={e => setPurchaseDate(e.target.value)} value={purchase_date}
                       className="border border-none rounded-md px-4 py-2 h-8 w-7/12 focus:outline-custom-bgColor focus:border-transparent" />
                   </div>
