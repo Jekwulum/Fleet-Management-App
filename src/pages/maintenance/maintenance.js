@@ -145,16 +145,16 @@ const Maintenance = () => {
                   className="w-4/6 m-1 text-left" />
 
 
-                <div class="flex items-center space-x-1 mx-auto my-1">
+                <div class="flex flex-col md:flex-row items-center space-x-1 mx-auto my-1">
                   <label htmlFor="date" class="text-gray-700 text-sm">Maintenance Date:</label>
                   <input type="date" id="date" name="date" onChange={e => setPayload({ ...payload, maintenance_date: e.target.value })}
-                    className="border border-none rounded-md px-2 py-2 h-8 w-6/12 focus:outline-custom-bgColor focus:border-transparent" />
+                    className="border border-none rounded-md px-2 py-2 h-8 md:w-6/12 focus:outline-custom-bgColor focus:border-transparent" />
                 </div>
                 {/* </div> */}
 
                 <button onClick={createNewMaintenance}
                   disabled={isDisabledBtn}
-                  className={`bg-custom-bgColor h-9 w-2/6 rounded-full my-4 text-white transition-all duration-300 ${isDisabledBtn ? 'opacity-75' : "hover:bg-gray-500"}`}>
+                  className={`bg-custom-bgColor h-9 w-4/6 md:w-2/6 rounded-full my-4 text-white transition-all duration-300 ${isDisabledBtn ? 'opacity-75' : "hover:bg-gray-500"}`}>
                   Add Maintenance</button>
               </div> : null}
 

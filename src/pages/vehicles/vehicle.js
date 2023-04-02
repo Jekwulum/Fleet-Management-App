@@ -131,7 +131,7 @@ const Vehicle = () => {
               <button onClick={createVehicleProfile}
                 disabled={isDisabledBtn}
                 className={`bg-custom-bgColor h-9 w-2/6 rounded-full my-4 text-white transition-all duration-300 ${isDisabledBtn ? 'opacity-75' : "hover:bg-gray-500"}`}>
-                Create profile</button>
+                Add Vehicle</button>
             </div> : null}
 
           <div className='mx-auto w-5/6 mt-5'>
