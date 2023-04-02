@@ -100,28 +100,30 @@ const Trips = () => {
       .then(({ data: responseData }) => {
         if (responseData.status === "SUCCESS") {
           setTripsData(responseData.data);
+          Axios.get(`/driver`)
+            .then(({ data: responseData }) => {
+              if (responseData.status === "SUCCESS") {
+                setAllDrivers(responseData.data);
+                setDriversData(driversDataMapper(responseData.data));
+                Axios.get(`/vehicle`)
+                  .then(({ data: responseData }) => {
+                    if (responseData.status === "SUCCESS") {
+                      setAllVehicles(responseData.data);
+                      setVehiclesData(vehiclesDataMapper(responseData.data));
+                      setLoading(false);
+                    } else setLoading(true);
+                  })
+                  .catch(err => console.error(err));
+              } else setLoading(true);
+            })
+            .catch(err => console.error(err));
         } else setLoading(true);
       })
       .catch(error => console.log(error));
 
-    Axios.get(`/driver`)
-      .then(({ data: responseData }) => {
-        if (responseData.status === "SUCCESS") {
-          setAllDrivers(responseData.data);
-          setDriversData(driversDataMapper(responseData.data));
-        } else setLoading(true);
-      })
-      .catch(err => console.error(err));
 
-    Axios.get(`/vehicle`)
-      .then(({ data: responseData }) => {
-        if (responseData.status === "SUCCESS") {
-          setAllVehicles(responseData.data);
-          setVehiclesData(vehiclesDataMapper(responseData.data));
-          setLoading(false);
-        } else setLoading(true);
-      })
-      .catch(err => console.error(err));
+
+
   }, []);
 
   return (

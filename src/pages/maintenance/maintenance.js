@@ -91,19 +91,20 @@ const Maintenance = () => {
       .then(({ data: responseData }) => {
         if (responseData.status === "SUCCESS") {
           setMaintenanceData(responseData.data);
+          Axios.get(`/vehicle`)
+            .then(({ data: responseData }) => {
+              if (responseData.status === "SUCCESS") {
+                setAllVehicles(responseData.data);
+                setVehiclesData(vehiclesDataMapper(responseData.data));
+                setLoading(false);
+              } else setLoading(true);
+            })
+            .catch(err => console.error(err));
         } else setLoading(true);
       })
       .catch(error => console.log(error));
 
-    Axios.get(`/vehicle`)
-      .then(({ data: responseData }) => {
-        if (responseData.status === "SUCCESS") {
-          setAllVehicles(responseData.data);
-          setVehiclesData(vehiclesDataMapper(responseData.data));
-          setLoading(false);
-        } else setLoading(true);
-      })
-      .catch(err => console.error(err));
+
   }, []);
 
   return (

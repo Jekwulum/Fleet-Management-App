@@ -10,8 +10,8 @@ export default function EditDriverModal({ onchange, data }) {
   const [phone, setPhone] = useState(data.phone);
   const [is_active, setActiveStatus] = useState(data.is_active);
   const ACTIVE_STATUS = [
-    { value: true, label: 'YES' },
-    { value: false, label: 'NO' }
+    { value: true, label: 'ACTIVE' },
+    { value: false, label: 'INACTIVE' }
   ];
 
   const handleClose = () => {

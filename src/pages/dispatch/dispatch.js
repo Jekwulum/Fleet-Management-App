@@ -85,22 +85,24 @@ const Dispatch = () => {
       .then(({ data: responseData }) => {
         if (responseData.status === "SUCCESS") {
           setDispatchesData(responseData.data);
+          Axios.get(`/driver`)
+            .then(({ data: responseData }) => {
+              setDriversData(driversDataMapper(responseData.data));
+              Axios.get(`/vehicle`)
+                .then(({ data: responseData }) => {
+                  setVehiclesData(vehiclesDataMapper(responseData.data));
+                  setLoading(false);
+                })
+                .catch(err => console.error(err));
+            })
+            .catch(err => console.error(err));
+
         } else setLoading(true);
       })
       .catch(error => console.log(error));
 
-    Axios.get(`/driver`)
-      .then(({ data: responseData }) => {
-        setDriversData(driversDataMapper(responseData.data));
-      })
-      .catch(err => console.error(err));
 
-    Axios.get(`/vehicle`)
-      .then(({ data: responseData }) => {
-        setVehiclesData(vehiclesDataMapper(responseData.data));
-        setLoading(false);
-      })
-      .catch(err => console.error(err));
+
   }, []);
 
   return (
